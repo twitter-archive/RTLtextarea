@@ -1,4 +1,4 @@
-RTLtextarea [![Build Status](https://secure.travis-ci.org/twitter/RTLtextarea.png)](http://travis-ci.org/twitter/RTLtextarea)
+RTLtextarea [![Build Status](https://travis-ci.org/twitter/RTLtextarea.png?branch=master)](https://travis-ci.org/twitter/RTLtextarea)
 ========
 Automatically detects RTL (right-to-left) languages and appropriately configures the text input, without having to manually specify CSS `direction` or `dir` property on page load. Allows automatic switching between LTR and RTL languages.
 
