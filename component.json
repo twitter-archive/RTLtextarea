@@ -1,0 +1,8 @@
+{
+  "name": "RTLTextarea",
+  "version": "1.0.0",
+  "main": ["./RTLText.module.js"],
+  "dependencies": {
+    "twitter-text": "~1.5.0"
+  }
+}
