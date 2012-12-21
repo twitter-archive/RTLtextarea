@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="tests/public/lib/twitter-text-1.5.0.js"></script>
+    <script type="text/javascript" src="src/RTLText.module.js"></script>
+    <script type="text/javascript" src="tests/public/lib/jquery-1.8.2.min.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -45,7 +48,19 @@ specific RTL rules regarding the placement of @ signs, # tags, and URLs.</p>
 
 <h3>After:</h3>
 
-<p><img src="http://twitter.github.com/RTLtextarea/img/rtltextarea_after.png" alt="before"></p>
+<p><img src="http://twitter.github.com/RTLtextarea/img/rtltextarea_after.png" alt="after"></p>
+
+<h2>Demo</h2>
+
+<textarea id="demo-text" style="width: 100%; height: 250px;" placeholder="Set text input to a right-to-left language (Arabic, Hebrew, Persian) and type here."></textarea>
+<script type="text/javascript">
+$(document).ready(function(){
+  var $textarea = $("#demo-text");
+  $textarea.on('keyup', RTLText.onTextChange);
+  $textarea.on('keydown', RTLText.onTextChange);
+});
+</script>
+
 
 <h2>How to use</h2>
 
@@ -114,6 +129,6 @@ initial text.</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+
   </body>
 </html>
