@@ -1,0 +1,1 @@
+../../src/RTLText.module.js

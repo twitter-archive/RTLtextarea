@@ -1,0 +1,32 @@
+{
+  "name": "RTLText",
+  "preferGlobal": "true",
+  "version": "1.0.0",
+  "author": "Esten Hurtle <ehurtle@twitter.com>",
+  "description": "a module to apply RTL text to textboxes",
+  "scripts": {
+    "pretest": "forever start ./tests/server.js",
+    "test": "phantomjs ./tests/public/lib/phantomjs-testrunner.js http://localhost:8085/phantom-runner.html",
+    "posttest": "forever stop tests/server.js"
+  },
+  "main": "./RTLText.module.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodejitsu/http-server.git"
+  },
+  "keywords": [
+    "RTL",
+    "international",
+    "i18n"
+  ],
+  "dependencies" : {
+    "phantomjs"     :  "0.2.x",
+    "twitter-text"  :  "1.5.x",
+    "forever"       :  "0.10.x"
+  },
+  "analyze": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
