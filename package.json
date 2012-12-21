@@ -20,6 +20,7 @@
     "i18n"
   ],
   "dependencies" : {
+    "node-static"   :  "0.6.x",
     "phantomjs"     :  "0.2.x",
     "twitter-text"  :  "1.5.x",
     "forever"       :  "0.10.x"
