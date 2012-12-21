@@ -31,32 +31,85 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <h1>RTLtextarea <a href="http://travis-ci.org/twitter/RTLtextarea"><img src="https://secure.travis-ci.org/twitter/RTLtextarea.png" alt="Build Status"></a>
+</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Automatically detects RTL (right-to-left) languages and appropriately configures the text input, without having to manually specify CSS <code>direction</code> or <code>dir</code> property on page load. Allows automatic switching between LTR and RTL languages.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>What it does</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>This module will set the direction of a textarea to RTL when a threshold
+of RTL characters has been reached (<code>rtlThreshold</code>). It also applies Twitter-
+specific RTL rules regarding the placement of @ signs, # tags, and URLs.</p>
 
-<h3>Designer Templates</h3>
+<h3>Before:</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p><img src="http://twitter.github.com/RTLtextarea/img/rtltextarea_before.png" alt="before"></p>
 
-<h3>Rather Drive Stick?</h3>
+<h3>After:</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p><img src="http://twitter.github.com/RTLtextarea/img/rtltextarea_after.png" alt="before"></p>
 
-<h3>Authors and Contributors</h3>
+<h2>How to use</h2>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>Bind keyup and keydown to <code>RTLText.onTextChange</code>. If you have initial text,
+call <code>RTLText.setText(textarea, initial_string)</code> to set markers on that
+initial text.</p>
 
-<h3>Support or Contact</h3>
+<div class="highlight"><pre>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">$textarea</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#someTextarea'</span><span class="p">);</span>
+    <span class="nx">$textarea</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'keyup'</span><span class="p">,</span> <span class="nx">RTLText</span><span class="p">.</span><span class="nx">onTextChange</span><span class="p">);</span>
+    <span class="nx">$textarea</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'keydown'</span><span class="p">,</span> <span class="nx">RTLText</span><span class="p">.</span><span class="nx">onTextChange</span><span class="p">);</span>
+    <span class="nx">RTLText</span><span class="p">.</span><span class="nx">setText</span><span class="p">(</span><span class="nx">$textarea</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nx">$textarea</span><span class="p">.</span><span class="nx">val</span><span class="p">());</span>
+  <span class="p">});</span>
+</pre></div>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>When storing or submitting the text, make sure to extract the unicode markers first:</p>
+
+<div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">textToSubmit</span> <span class="o">=</span> <span class="nx">RTLText</span><span class="p">.</span><span class="nx">cleanText</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">"#someTextarea"</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+</pre></div>
+
+<p>Get the length of the text minus the control characters:</p>
+
+<div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">textLength</span> <span class="o">=</span> <span class="nx">RTLText</span><span class="p">.</span><span class="nx">textLength</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">"#someTextarea"</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+</pre></div>
+
+<p>Add markers to a string without affecting the text box:</p>
+
+<div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">stringWithMarkers</span> <span class="o">=</span> <span class="nx">RTLText</span><span class="p">.</span><span class="nx">addRTLMarkers</span><span class="p">(</span><span class="nx">string</span><span class="p">);</span>
+</pre></div>
+
+<h2>Versioning</h2>
+
+<p>We use semantic versioning, as described here: <a href="http://semver.org/">http://semver.org/</a></p>
+
+<p>Releases are numbered and constructed with the following guidelines:</p>
+
+<ul>
+<li>Breaking backwards compatibility bumps the major</li>
+<li>New additions without breaking backwards compatibility bumps the minor</li>
+<li>Bug fixes and misc changes bump the patch</li>
+</ul><h2>Testing</h2>
+
+<p>Tests use <a href="http://pivotal.github.com/jasmine/">Jasmine</a> and <a href="http://phantomjs.org/">PhantomJS</a>. To run them, just use: <code>npm test</code>.</p>
+
+<h2>Authors</h2>
+
+<p><strong>Naoki Takano</strong></p>
+
+<ul>
+<li><a href="https://github.com/hontent">https://github.com/hontent</a></li>
+<li><a href="http://www.twitter.com/honten">@honten</a></li>
+</ul><p><strong>Esten Hurtle</strong></p>
+
+<ul>
+<li><a href="https://github.com/estenh">https://github.com/estenh</a></li>
+<li><a href="http://www.twitter.com/esten">@esten</a></li>
+</ul><h2>License</h2>
+
+<p>Copyright 2012 Twitter, Inc.</p>
+
+<p>Licensed under the <a href="http://opensource.org/licenses/mit-license.php">MIT License</a></p>
       </section>
     </div>
 
