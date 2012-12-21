@@ -5,6 +5,6 @@ Recommendations and requirements for how to contribute to RTLtextarea:
 - Keep pull requests simple and small
 
 ### License
-- By contributing your code, you agreee to license your contribution under the terms of the MIT license: http://opensource.org/licenses/mit-license.php
+- By contributing your code, you agreee to license your contribution under the terms of the MIT license: https://raw.github.com/twitter/RTLtextarea/master/LICENSE
 
 Thanks for contributing!
