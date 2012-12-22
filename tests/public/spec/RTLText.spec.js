@@ -70,14 +70,6 @@ describe('tools to apply RTL rules to text entry', function(){
       expect(result).toBe(expectedResult);
     });
   });
-  describe('cleanText()', function () {
-    it('removes markers to prep for a tweet submission', function (){
-      var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
-      var expectedResult = '@\u064A\u0633\u0634\u0634\u064A\u0633 @test';
-      var result = RTLText.cleanText(sampleText);
-      expect(result).toBe(expectedResult);
-    });
-  });
   describe('addRTLMarkers()', function () {
     it('adds markers to a string', function (){
       var sampleText = '\u064A\u0633 #hi \u0634\u0634\u064A\u0633 @test';
