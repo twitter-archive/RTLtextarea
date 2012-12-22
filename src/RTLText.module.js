@@ -88,7 +88,8 @@ var RTLText = function() {
   function replaceIndices (oldText, extractFn, replaceCb) {
     var lastIndex = 0;
     var newText = '';
-    var extractedItems = extractFn(oldText)
+    var extractedItems = extractFn(oldText);
+
     for (var i = 0; i < extractedItems.length; i++) {
       var item = extractedItems[i];
       var type = '';
@@ -132,7 +133,7 @@ var RTLText = function() {
   }
 
   // If a user deletes a hidden marker char, it will just get rewritten during
-  // notifyTextUpdated.  Special case this by continuing to delete in the same
+  // notifyTextUpdated. Special case this by continuing to delete in the same
   // direction until a normal char is consumed.
   function erasePastMarkers(e) {
     var offset;
@@ -176,30 +177,30 @@ var RTLText = function() {
     // Remove original placeholder text from this
     plainText = plainText.replace(originalText, "");
     var urlMentionsLength = 0;
-    var trimmedText = plainText.replace(trimRegex,'');
+    var trimmedText = plainText.replace(trimRegex, '');
     var defaultDir = originalDir;
 
-    if (!trimmedText || !trimmedText.replace(/#/g,'')) {
-      return defaultDir === 'rtl' ? true : false;  // No text, use default.
+    if (!trimmedText || !trimmedText.replace(/#/g, '')) {
+      return defaultDir === 'rtl' ? true : false; // No text, use default.
     }
 
     if (!matchedRtlChars) {
-      return false;  // No RTL chars, use LTR
+      return false; // No RTL chars, use LTR
     }
 
     if (plainText) {
       var mentions = twttr.txt.extractMentionsWithIndices(plainText);
       var mentionsLength = mentions.length;
-      for (var x = 0; x < mentionsLength; x++) {
-        var value = mentions[x];
-        urlMentionsLength += value.screenName.length + 1;
-      };
+      var i;
+
+      for (i = 0; i < mentionsLength; i++) {
+        urlMentionsLength += mentions[i].screenName.length + 1;
+      }
       var urls = twttr.txt.extractUrlsWithIndices(plainText);
       var urlsLength = urls.length;
-      for (var x = 0; x < urlsLength; x++) {
-        var value = urls[x];
-        urlMentionsLength += value.url.length + 2;
-      };
+      for (i = 0; i < urlsLength; i++) {
+        urlMentionsLength += urls[i].url.length + 2;
+      }
     }
     var length = trimmedText.length - urlMentionsLength;
     return length > 0 && matchedRtlChars.length / length > rtlThreshold;
@@ -216,7 +217,8 @@ var RTLText = function() {
       erasePastMarkers(event);
     }
     that.setText(event.target || event.srcElement);
-  }
+  };
+
   // Optionally takes a second param, with original text, to exclude from RTL/LTR calculation
   that.setText = function(textarea) {
     // Original directionality could be in a few places. Check them all.
@@ -234,7 +236,7 @@ var RTLText = function() {
         originalDir = document.body.dir;
       }
     }
-    if (arguments.length == 2) {
+    if (arguments.length === 2) {
       originalDir = textarea.ownerDocument.documentElement.className;
       originalText = arguments[1];
     }
@@ -249,13 +251,12 @@ var RTLText = function() {
       // Assume any recent change in text length due to markers affects the
       // current cursor position. If more accuracy is needed, the position
       // could be translated during replace operations inside setMarkers.
-      pos = getCaretPosition(textarea);
-      setCaretPosition(textarea, pos + newText.length - plainText.length);
+      setCaretPosition(textarea, getCaretPosition(textarea) + newText.length - plainText.length);
     }
     textarea.setAttribute('dir', newTextDir);
     textarea.style.direction = newTextDir;
     textarea.style.textAlign = (newTextDir === 'rtl' ? 'right' : 'left');
-  }
+  };
 
   // Use this to get the length of a tweet with unicode control characters removed
   that.textLength = function(text) {
@@ -268,25 +269,25 @@ var RTLText = function() {
       if (/^https:/.test(urls[i])) {
         length += 1;
       }
-    };
+    }
 
     return twLength = length;
-  }
+  };
 
   // Do this before text is submitted
   that.cleanText = function(text) {
     return removeMarkers(text);
-  }
+  };
 
   // If markers need to be added to a string without affecting the text box, use this
   that.addRTLMarkers = function (s) {
     return setMarkers(s);
-  }
+  };
 
   // For determining if text should be RTL (returns boolean)
   that.shouldBeRTL = function(s) {
     return shouldBeRTL(s);
-  }
+  };
 
   return that;
 
