@@ -1,4 +1,4 @@
-describe('tools to apply RTL rules to text entry', function(){
+describe('tools to apply RTL rules to text entry', function () {
   var KEY_ESCAPE = 27;
   var KEY_ENTER = 13;
   var KEY_BACKSPACE = 8;
@@ -6,7 +6,7 @@ describe('tools to apply RTL rules to text entry', function(){
   var KEY_RIGHT_ARROW = 39;
   var $textBox;
 
-  beforeEach(function() {
+  beforeEach(function () {
     $textbox = $('<textarea id="textbox"></textarea>');
     $('body').append($textbox);
   });
@@ -15,9 +15,8 @@ describe('tools to apply RTL rules to text entry', function(){
     $textbox.remove();
   });
 
-
-  describe('setText()', function (){
-    it('surrounds strings with unicode RTL markers', function (){
+  describe('setText()', function () {
+    it('surrounds strings with unicode RTL markers', function () {
       // test string contains arabic, @sign, hashtag, and url
       var resultText = '\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f \u200e#test \u064A\u0633\u0634\u0634\u064A\u0633 http://www.twitter.com/\u200e';
       var plainText = '\u064A\u0633\u0634\u0634\u064A\u0633 @test #test \u064A\u0633\u0634\u0634\u064A\u0633 http://www.twitter.com/';
@@ -27,8 +26,8 @@ describe('tools to apply RTL rules to text entry', function(){
     });
   });
 
-  describe('onTextChange()', function (){
-    it('appropriately deletes characters', function (){
+  describe('onTextChange()', function () {
+    it('appropriately deletes characters', function () {
       var backspaceEvent = $.Event('keydown', { keyCode: KEY_BACKSPACE, which: KEY_BACKSPACE, target: $textbox.get(0) });
       var deleteEvent = $.Event('keydown', { keyCode: KEY_DELETE, which: KEY_DELETE, target: $textbox.get(0) });
 
@@ -55,43 +54,40 @@ describe('tools to apply RTL rules to text entry', function(){
       expect($textbox.val()).toBe('\u064A\u0633\u0634\u0634\u064A\u0633 @');
     });
   });
+
   describe('textLength()', function () {
-    it('ignores unicode directionality chars when checking length', function (){
+    it('ignores unicode directionality chars when checking length', function () {
       var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
-      var length = RTLText.textLength(sampleText)
+      var length = RTLText.textLength(sampleText);
       expect(length).toBe(13);
     });
   });
+
   describe('cleanText()', function () {
-    it('removes markers to prep for a tweet submission', function (){
+    it('removes markers to prep for a tweet submission', function () {
       var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
       var expectedResult = '@\u064A\u0633\u0634\u0634\u064A\u0633 @test';
       var result = RTLText.cleanText(sampleText);
       expect(result).toBe(expectedResult);
     });
   });
-  describe('cleanText()', function () {
-    it('removes markers to prep for a tweet submission', function (){
-      var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
-      var expectedResult = '@\u064A\u0633\u0634\u0634\u064A\u0633 @test';
-      var result = RTLText.cleanText(sampleText);
-      expect(result).toBe(expectedResult);
-    });
-  });
+
   describe('addRTLMarkers()', function () {
-    it('adds markers to a string', function (){
+    it('adds markers to a string', function () {
       var sampleText = '\u064A\u0633 #hi \u0634\u0634\u064A\u0633 @test';
       var expectedResult = '\u064A\u0633 \u200e#hi \u0634\u0634\u064A\u0633 \u200e@test\u200f';
       var result = RTLText.addRTLMarkers(sampleText);
       expect(result).toBe(expectedResult);
     });
   });
+
   describe('shouldBeRTL()', function () {
     it('successfully determines when a string should be rendered as RTL', function () {
       var sampleText = '\u064A\u0633 @test';
       var result = RTLText.shouldBeRTL(sampleText);
       expect(result).toBe(true);
     });
+
     it('successfully determines when a string should not be rendered as RTL', function () {
       var sampleText = '\u064A test';
       var result = RTLText.shouldBeRTL(sampleText);
