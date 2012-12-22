@@ -251,8 +251,7 @@ var RTLText = function() {
       // Assume any recent change in text length due to markers affects the
       // current cursor position. If more accuracy is needed, the position
       // could be translated during replace operations inside setMarkers.
-      pos = getCaretPosition(textarea);
-      setCaretPosition(textarea, pos + newText.length - plainText.length);
+      setCaretPosition(textarea, getCaretPosition(textarea) + newText.length - plainText.length);
     }
     textarea.setAttribute('dir', newTextDir);
     textarea.style.direction = newTextDir;
