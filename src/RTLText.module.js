@@ -191,13 +191,15 @@ var RTLText = function() {
     if (plainText) {
       var mentions = twttr.txt.extractMentionsWithIndices(plainText);
       var mentionsLength = mentions.length;
-      for (var x = 0; x < mentionsLength; x++) {
-        urlMentionsLength += mentions[x].screenName.length + 1;
+      var i;
+
+      for (i = 0; i < mentionsLength; i++) {
+        urlMentionsLength += mentions[i].screenName.length + 1;
       }
       var urls = twttr.txt.extractUrlsWithIndices(plainText);
       var urlsLength = urls.length;
-      for (var x = 0; x < urlsLength; x++) {
-        urlMentionsLength += urls[x].url.length + 2;
+      for (i = 0; i < urlsLength; i++) {
+        urlMentionsLength += urls[i].url.length + 2;
       }
     }
     var length = trimmedText.length - urlMentionsLength;
