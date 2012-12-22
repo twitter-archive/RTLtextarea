@@ -177,10 +177,10 @@ var RTLText = function() {
     // Remove original placeholder text from this
     plainText = plainText.replace(originalText, "");
     var urlMentionsLength = 0;
-    var trimmedText = plainText.replace(trimRegex,'');
+    var trimmedText = plainText.replace(trimRegex, '');
     var defaultDir = originalDir;
 
-    if (!trimmedText || !trimmedText.replace(/#/g,'')) {
+    if (!trimmedText || !trimmedText.replace(/#/g, '')) {
       return defaultDir === 'rtl' ? true : false; // No text, use default.
     }
 
@@ -192,14 +192,12 @@ var RTLText = function() {
       var mentions = twttr.txt.extractMentionsWithIndices(plainText);
       var mentionsLength = mentions.length;
       for (var x = 0; x < mentionsLength; x++) {
-        var value = mentions[x];
-        urlMentionsLength += value.screenName.length + 1;
+        urlMentionsLength += mentions[x].screenName.length + 1;
       }
       var urls = twttr.txt.extractUrlsWithIndices(plainText);
       var urlsLength = urls.length;
       for (var x = 0; x < urlsLength; x++) {
-        var value = urls[x];
-        urlMentionsLength += value.url.length + 2;
+        urlMentionsLength += urls[x].url.length + 2;
       }
     }
     var length = trimmedText.length - urlMentionsLength;
