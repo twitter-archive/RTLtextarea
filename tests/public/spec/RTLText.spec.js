@@ -58,7 +58,7 @@ describe('tools to apply RTL rules to text entry', function(){
   describe('textLength()', function () {
     it('ignores unicode directionality chars when checking length', function (){
       var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
-      var length = RTLText.textLength(sampleText)
+      var length = RTLText.textLength(sampleText);
       expect(length).toBe(13);
     });
   });
