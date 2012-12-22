@@ -16,6 +16,8 @@
  * initial text.
  */
 var RTLText = function() {
+  'use strict';
+
   var that = {};
   var rtlThreshold = 0.3;
   var rtlChar = /[\u0600-\u06FF]|[\u0750-\u077F]|[\u0590-\u05FF]|[\uFE70-\uFEFF]/mg;
