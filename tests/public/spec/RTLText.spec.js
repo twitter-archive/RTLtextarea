@@ -4,7 +4,7 @@ describe('tools to apply RTL rules to text entry', function () {
   var KEY_BACKSPACE = 8;
   var KEY_DELETE = 46;
   var KEY_RIGHT_ARROW = 39;
-  var $textBox;
+  var $textbox;
 
   beforeEach(function () {
     $textbox = $('<textarea id="textbox"></textarea>');
