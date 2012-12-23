@@ -47,13 +47,11 @@ var RTLText = function () {
   var dirMark = /\u200e|\u200f/mg;
   var ltrMark = "\u200e";
   var rtlMark = "\u200f";
-  var rtlHashtag = /^#.*([\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF])+/mg;
   var keyConstants = {
     BACKSPACE: 8,
     DELETE: 46
   };
   var twLength = 0;
-  var oldText = "";
   var tcoLength = 20;
   var isRTL = false;
   var originalText = "";
@@ -106,9 +104,6 @@ var RTLText = function () {
     }
   }
 
-  function getSelection () {
-    return window.getSelection ? window.getSelection().toString() : document.selection.createRange().text;
-  }
   // End of caret methods
 
   function replaceIndices (oldText, extractFn, replaceCb) {
