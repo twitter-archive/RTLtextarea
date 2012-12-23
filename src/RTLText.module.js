@@ -20,11 +20,34 @@ var RTLText = function () {
 
   var that = {};
   var rtlThreshold = 0.3;
-  var rtlChar = /[\u0600-\u06FF]|[\u0750-\u077F]|[\u0590-\u05FF]|[\uFE70-\uFEFF]/mg;
+
+  /*
+   * Right-to-left Unicode blocks for modern scripts are:
+   *
+   * Consecutive range of the main letters:
+   * U+0590  to U+05FF  - Hebrew
+   * U+0600  to U+06FF  - Arabic
+   * U+0700  to U+074F  - Syriac
+   * U+0750  to U+077F  - Arabic Supplement
+   * U+0780  to U+07BF  - Thaana
+   * U+07C0  to U+07FF  - N'Ko
+   * U+0800  to U+083F  - Samaritan
+   *
+   * Arabic Extended:
+   * U+08A0  to U+08FF  - Arabic Extended-A
+   *
+   * Consecutive presentation forms:
+   * U+FB1D  to U+FB4F  - Hebrew presentation forms
+   * U+FB50  to U+FDFF  - Arabic presentation forms A
+   *
+   * More Arabic presentation forms:
+   * U+FE70  to U+FEFF  - Arabic presentation forms B
+   */
+  var rtlChar = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
   var dirMark = /\u200e|\u200f/mg;
   var ltrMark = "\u200e";
   var rtlMark = "\u200f";
-  var rtlHashtag = /^#.*([\u0600-\u06FF]|[\u0750-\u077F]|[\u0590-\u05FF]|[\uFE70-\uFEFF])+/mg;
+  var rtlHashtag = /^#.*([\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF])+/mg;
   var keyConstants = {
     BACKSPACE: 8,
     DELETE: 46
