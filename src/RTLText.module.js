@@ -15,7 +15,7 @@
  * call RTLText.setText(textarea, initial_string) to set markers on that
  * initial text.
  */
-var RTLText = function() {
+var RTLText = function () {
   'use strict';
 
   var that = {};
@@ -137,7 +137,7 @@ var RTLText = function() {
   // If a user deletes a hidden marker char, it will just get rewritten during
   // notifyTextUpdated. Special case this by continuing to delete in the same
   // direction until a normal char is consumed.
-  function erasePastMarkers(e) {
+  function erasePastMarkers (e) {
     var offset;
     var textarea = (e.target) ? e.target : e.srcElement;
     var key = (e.which) ? e.which : e.keyCode;
@@ -222,7 +222,7 @@ var RTLText = function() {
   };
 
   // Optionally takes a second param, with original text, to exclude from RTL/LTR calculation
-  that.setText = function(textarea) {
+  that.setText = function (textarea) {
     // Original directionality could be in a few places. Check them all.
     if (!originalDir) {
       if (textarea.style.direction) {
@@ -261,7 +261,7 @@ var RTLText = function() {
   };
 
   // Use this to get the length of a tweet with unicode control characters removed
-  that.textLength = function(text) {
+  that.textLength = function (text) {
     var tweet = removeMarkers(text);
     var urls = twttr.txt.extractUrls(tweet);
     var length = tweet.length - urls.join('').length;
@@ -277,7 +277,7 @@ var RTLText = function() {
   };
 
   // Do this before text is submitted
-  that.cleanText = function(text) {
+  that.cleanText = function (text) {
     return removeMarkers(text);
   };
 
@@ -287,7 +287,7 @@ var RTLText = function() {
   };
 
   // For determining if text should be RTL (returns boolean)
-  that.shouldBeRTL = function(s) {
+  that.shouldBeRTL = function (s) {
     return shouldBeRTL(s);
   };
 
