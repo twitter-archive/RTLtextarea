@@ -15,7 +15,7 @@
  * call RTLText.setText(textarea, initial_string) to set markers on that
  * initial text.
  */
-var RTLText = function() {
+var RTLText = function () {
   'use strict';
 
   var that = {};
@@ -41,7 +41,7 @@ var RTLText = function() {
   /* Private methods */
 
   // Caret manipulation
-  function elementHasFocus (el) {
+  function elementHasFocus(el) {
     // Try/catch to fix a bug in IE that will cause 'unspecified error' if another frame has focus
     try {
       return document.activeElement === el;
@@ -51,7 +51,7 @@ var RTLText = function() {
     }
   }
 
-  function getCaretPosition (el) {
+  function getCaretPosition(el) {
     if (!elementHasFocus(el)) { return 0; }
 
     var range;
@@ -67,7 +67,7 @@ var RTLText = function() {
     }
   }
 
-  function setCaretPosition (el, position) {
+  function setCaretPosition(el, position) {
     if (!elementHasFocus(el)) { return; }
     if (typeof el.selectionStart === "number") {
       el.selectionStart = position;
@@ -82,12 +82,12 @@ var RTLText = function() {
     }
   }
 
-  function getSelection () {
+  function getSelection() {
     return window.getSelection ? window.getSelection().toString() : document.selection.createRange().text;
   }
   // End of caret methods
 
-  function replaceIndices (oldText, extractFn, replaceCb) {
+  function replaceIndices(oldText, extractFn, replaceCb) {
     var lastIndex = 0;
     var newText = '';
     var extractedItems = extractFn(oldText);
@@ -115,7 +115,7 @@ var RTLText = function() {
   }
 
   // Handle all LTR/RTL markers for tweet features
-  function setMarkers (plainText) {
+  function setMarkers(plainText) {
     var matchedRtlChars = plainText.match(rtlChar);
     var text = plainText;
     if (matchedRtlChars || originalDir === "rtl") {
@@ -170,11 +170,11 @@ var RTLText = function() {
     }
   }
 
-  function removeMarkers (text) {
+  function removeMarkers(text) {
     return text.replace(dirMark, '');
   }
 
-  function shouldBeRTL (plainText) {
+  function shouldBeRTL(plainText) {
     var matchedRtlChars = plainText.match(rtlChar);
     // Remove original placeholder text from this
     plainText = plainText.replace(originalText, "");
@@ -222,7 +222,7 @@ var RTLText = function() {
   };
 
   // Optionally takes a second param, with original text, to exclude from RTL/LTR calculation
-  that.setText = function(textarea) {
+  that.setText = function (textarea) {
     // Original directionality could be in a few places. Check them all.
     if (!originalDir) {
       if (textarea.style.direction) {
@@ -261,7 +261,7 @@ var RTLText = function() {
   };
 
   // Use this to get the length of a tweet with unicode control characters removed
-  that.textLength = function(text) {
+  that.textLength = function (text) {
     var tweet = removeMarkers(text);
     var urls = twttr.txt.extractUrls(tweet);
     var length = tweet.length - urls.join('').length;
@@ -277,7 +277,7 @@ var RTLText = function() {
   };
 
   // Do this before text is submitted
-  that.cleanText = function(text) {
+  that.cleanText = function (text) {
     return removeMarkers(text);
   };
 
@@ -287,7 +287,7 @@ var RTLText = function() {
   };
 
   // For determining if text should be RTL (returns boolean)
-  that.shouldBeRTL = function(s) {
+  that.shouldBeRTL = function (s) {
     return shouldBeRTL(s);
   };
 
