@@ -36,11 +36,11 @@ describe('tools to apply RTL rules to text entry', function () {
 
       $textbox.focus();
       // Testing delete is much easier, because it doesn't involve positioning cursor
-      var sampleText = '\u200e@\u200f\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f';
+      var sampleText = '\u200e@\u200f\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u200e@test\u200f';
       $textbox.val(sampleText);
       caret.setPosition($textbox.get(0), 0);
       $textbox.trigger(deleteEvent);
-      expect($textbox.val()).toBe('\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f');
+      expect($textbox.val()).toBe('\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u200e@test\u200f');
 
       // Backspace involves positioning a cursor that doesn't want to be positioned
       $textbox.focus();
@@ -51,7 +51,7 @@ describe('tools to apply RTL rules to text entry', function () {
       $textbox.trigger(backspaceEvent);
       $textbox.trigger(backspaceEvent);
       // Have to include the @ as the character will never be deleted without actually pressing the backspace button
-      expect($textbox.val()).toBe('\u064A\u0633\u0634\u0634\u064A\u0633 @');
+      expect($textbox.val()).toBe('\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA @');
     });
   });
 
