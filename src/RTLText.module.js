@@ -69,6 +69,7 @@ var RTLText = function () {
 
   function setCaretPosition (el, position) {
     if (!elementHasFocus(el)) { return; }
+
     if (typeof el.selectionStart === "number") {
       el.selectionStart = position;
       el.selectionEnd = position;
@@ -95,6 +96,7 @@ var RTLText = function () {
     for (var i = 0; i < extractedItems.length; i++) {
       var item = extractedItems[i];
       var type = '';
+
       if (item.screenName) {
         type = 'screenName';
       }
@@ -104,10 +106,12 @@ var RTLText = function () {
       if (item.url) {
         type = 'url';
       }
+
       var respObj = {
         entityText: oldText.slice(item.indices[0], item.indices[1]),
         entityType: type
       };
+
       newText += oldText.slice(lastIndex, item.indices[0]) + replaceCb(respObj);
       lastIndex = item.indices[1];
     }
@@ -148,6 +152,7 @@ var RTLText = function () {
     } else {
       return;
     }
+
     var pos = getCaretPosition(textarea);
     var text = textarea.value;
     var numErased = 0;
@@ -161,6 +166,7 @@ var RTLText = function () {
         text = text.slice(0, pos) + text.slice(pos + 1, text.length);
       }
     } while (charToDelete.match(dirMark));
+
     if (numErased > 1) {
       textarea.value = text;
       // If more than 1 needed to be removed, update the text
@@ -198,11 +204,14 @@ var RTLText = function () {
       for (i = 0; i < mentionsLength; i++) {
         urlMentionsLength += mentions[i].screenName.length + 1;
       }
+
       var urls = twttr.txt.extractUrlsWithIndices(plainText);
       var urlsLength = urls.length;
+
       for (i = 0; i < urlsLength; i++) {
         urlMentionsLength += urls[i].url.length + 2;
       }
+
     }
     var length = trimmedText.length - urlMentionsLength;
     return length > 0 && matchedRtlChars.length / length > rtlThreshold;
@@ -218,6 +227,7 @@ var RTLText = function () {
     if (event.type === "keydown") {
       erasePastMarkers(event);
     }
+
     that.setText(event.target || event.srcElement);
   };
 
@@ -238,10 +248,12 @@ var RTLText = function () {
         originalDir = document.body.dir;
       }
     }
+
     if (arguments.length === 2) {
       originalDir = textarea.ownerDocument.documentElement.className;
       originalText = arguments[1];
     }
+
     var text = textarea.value;
     var plainText = removeMarkers(text);
     isRTL = shouldBeRTL(plainText);
@@ -255,6 +267,7 @@ var RTLText = function () {
       // could be translated during replace operations inside setMarkers.
       setCaretPosition(textarea, getCaretPosition(textarea) + newText.length - plainText.length);
     }
+
     textarea.setAttribute('dir', newTextDir);
     textarea.style.direction = newTextDir;
     textarea.style.textAlign = (newTextDir === 'rtl' ? 'right' : 'left');
