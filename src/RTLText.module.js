@@ -59,6 +59,13 @@ var RTLText = function () {
   // Can't use trim cause of IE. Regex from here: http://stackoverflow.com/questions/2308134/trim-in-javascript-not-working-in-ie
   var trimRegex = /^\s+|\s+$/g;
 
+  var setManually = false;
+  var heldKeyCodes =  { '91': false,
+                        '16': false,
+                        '88': false,
+                        '17': false };
+  var useCtrlKey = navigator.userAgent.indexOf('Mac') === -1;
+
   /* Private methods */
 
   // Caret manipulation
@@ -235,11 +242,44 @@ var RTLText = function () {
     return length > 0 && matchedRtlChars.length / length > rtlThreshold;
   }
 
+  function detectManualDirection (e) {
+    var textarea = e.target || e.srcElement;
+    if (e.type === "keydown" && (e.keyCode === 91 || e.keyCode === 16 || e.keyCode === 88 || e.keyCode === 17)) {
+      heldKeyCodes[String(e.keyCode)] = true;
+    }
+    else if (e.type === "keyup" && (e.keyCode === 91 || e.keyCode === 16 || e.keyCode === 88 || e.keyCode === 17)) {
+      heldKeyCodes[String(e.keyCode)] = false;
+    }
+
+    if (((!useCtrlKey && heldKeyCodes['91']) || (useCtrlKey && heldKeyCodes['17'])) && heldKeyCodes['16'] && heldKeyCodes['88']) {
+      setManually = true;
+
+      if (textarea.dir === 'rtl') {
+        setTextDirection('ltr', textarea);
+      }
+      else {
+        setTextDirection('rtl', textarea);
+      }
+      heldKeyCodes =  { '91': false,
+                        '16': false,
+                        '88': false,
+                        '17': false };
+    }
+  }
+
+  function setTextDirection (dir, textarea) {
+    textarea.setAttribute('dir', dir);
+    textarea.style.direction = dir;
+    textarea.style.textAlign = (dir === 'rtl' ? 'right' : 'left');
+  }
+
   /* Public methods */
 
   // Bind this to *both* keydown & keyup
   that.onTextChange = function (e) {
     var event = e || window.event;
+
+    detectManualDirection(e);
 
     // Handle backspace through control characters:
     if (event.type === "keydown") {
@@ -285,10 +325,9 @@ var RTLText = function () {
       // could be translated during replace operations inside setMarkers.
       setCaretPosition(textarea, getCaretPosition(textarea) + newText.length - plainText.length);
     }
-
-    textarea.setAttribute('dir', newTextDir);
-    textarea.style.direction = newTextDir;
-    textarea.style.textAlign = (newTextDir === 'rtl' ? 'right' : 'left');
+    if (!setManually) {
+      setTextDirection(newTextDir, textarea);
+    }
   };
 
   // Use this to get the length of a tweet with unicode control characters removed
