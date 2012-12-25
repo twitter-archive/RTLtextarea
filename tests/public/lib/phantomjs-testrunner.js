@@ -27,6 +27,9 @@ else {
 
         // create a WebPage object to work with
         page = require("webpage").create();
+
+        // Set user agent for tests
+        page.settings.userAgent = 'PhantomJS';
         page.url = address;
 
         // When initialized, inject the reporting functions before the page is loaded
