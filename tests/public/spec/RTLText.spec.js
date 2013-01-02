@@ -4,6 +4,11 @@ describe('tools to apply RTL rules to text entry', function () {
   var KEY_BACKSPACE = 8;
   var KEY_DELETE = 46;
   var KEY_RIGHT_ARROW = 39;
+  var KEY_CTRL = 17;
+  var KEY_COMMAND = 91;
+  var KEY_SHIFT = 16;
+  var KEY_X = 88;
+
   var $textbox;
 
   beforeEach(function () {
@@ -52,6 +57,35 @@ describe('tools to apply RTL rules to text entry', function () {
       $textbox.trigger(backspaceEvent);
       // Have to include the @ as the character will never be deleted without actually pressing the backspace button
       expect($textbox.val()).toBe('\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA @');
+    });
+
+    it('manually sets text direction', function () {
+      var ctrlKeyEvent = $.Event('keydown', { keyCode: KEY_CTRL, which: KEY_CTRL, target: $textbox.get(0) });
+      var commandKeyEvent = $.Event('keydown', { keyCode: KEY_COMMAND, which: KEY_COMMAND, target: $textbox.get(0) });
+      var shiftKeyEvent = $.Event('keydown', { keyCode: KEY_SHIFT, which: KEY_SHIFT, target: $textbox.get(0) });
+      var xKeyEvent = $.Event('keydown', { keyCode: KEY_X, which: KEY_X, target: $textbox.get(0) });
+
+      $textbox.on('keydown', RTLText.onTextChange);
+      $textbox.on('keyup', RTLText.onTextChange);
+
+      $textbox.focus();
+
+      var sampleText = '\u200e@\u200f\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u200e@test\u200f';
+
+      $textbox.val(sampleText);
+
+      RTLText.setText($textbox.get(0));
+
+      if (navigator.userAgent.indexOf('Mac') === -1){
+        $textbox.trigger(ctrlKeyEvent);
+      }
+      else {
+        $textbox.trigger(commandKeyEvent);
+      }
+      $textbox.trigger(shiftKeyEvent);
+      $textbox.trigger(xKeyEvent);
+
+      expect($textbox.get(0).dir).toBe('ltr');
     });
   });
 
