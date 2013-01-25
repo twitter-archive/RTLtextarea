@@ -131,6 +131,9 @@ var RTLText = function () {
       if (item.url) {
         type = 'url';
       }
+      if (item.cashtag) {
+        type = 'cashtag';
+      }
 
       var respObj = {
         entityText: oldText.slice(item.indices[0], item.indices[1]),
@@ -157,6 +160,9 @@ var RTLText = function () {
         }
         else if (itemObj.entityType === "url") {
           return itemObj.entityText + ltrMark;
+        }
+        else if (itemObj.entityType === "cashtag") {
+          return itemObj.entityText;
         }
       });
     }
