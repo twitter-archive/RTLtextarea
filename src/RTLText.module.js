@@ -162,7 +162,7 @@ var RTLText = function () {
           return itemObj.entityText + ltrMark;
         }
         else if (itemObj.entityType === "cashtag") {
-          return itemObj.entityText;
+          return ltrMark + itemObj.entityText;
         }
       });
     }
