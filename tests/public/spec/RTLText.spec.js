@@ -23,8 +23,8 @@ describe('tools to apply RTL rules to text entry', function () {
   describe('setText()', function () {
     it('surrounds strings with unicode RTL markers', function () {
       // test string contains arabic, @sign, hashtag, and url
-      var resultText = '\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f \u200e#test \u064A\u0633\u0634\u0634\u064A\u0633 http://www.twitter.com/\u200e';
-      var plainText = '\u064A\u0633\u0634\u0634\u064A\u0633 @test #test \u064A\u0633\u0634\u0634\u064A\u0633 http://www.twitter.com/';
+      var resultText = '\u064A\u0633\u0634\u0634\u064A\u0633 \u200e@test\u200f \u200e#test \u064A\u0633\u0634\u0634 \u200e$CASH \u064A\u0633 http://www.twitter.com/\u200e';
+      var plainText = '\u064A\u0633\u0634\u0634\u064A\u0633 @test #test \u064A\u0633\u0634\u0634 $CASH \u064A\u0633 http://www.twitter.com/';
       $textbox.val(plainText);
       RTLText.setText($textbox.get(0));
       expect($textbox.val()).toBe(resultText);
