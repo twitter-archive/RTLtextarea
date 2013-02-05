@@ -325,6 +325,9 @@ var RTLText = function () {
     var newTextDir = (isRTL ? 'rtl' : 'ltr');
 
     if (newText !== text) {
+      // Fix for Chrome for Android
+      textarea.value = "";
+      textarea.focus();
       textarea.value = newText;
       // Assume any recent change in text length due to markers affects the
       // current cursor position. If more accuracy is needed, the position
