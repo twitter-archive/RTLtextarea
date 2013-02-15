@@ -52,7 +52,7 @@ var RTLText = function () {
     DELETE: 46
   };
   var twLength = 0;
-  var tcoLength = 20;
+  var tcoLength = 22;
   var isRTL = false;
   var originalText = "";
   var originalDir = "";
