@@ -208,7 +208,7 @@ var RTLText = function () {
   }
 
   function removeMarkers (text) {
-    return text.replace(dirMark, '');
+    return text ? text.replace(dirMark, '') : undefined;
   }
 
   function shouldBeRTL (plainText) {
@@ -319,6 +319,9 @@ var RTLText = function () {
     }
 
     var text = textarea.value;
+    if (!text) {
+      return;
+    }
     var plainText = removeMarkers(text);
     isRTL = shouldBeRTL(plainText);
     var newText = setMarkers(plainText);
