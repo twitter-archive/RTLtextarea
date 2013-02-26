@@ -209,7 +209,7 @@ var RTLText = function () {
   }
 
   function removeMarkers (text) {
-    return text ? text.replace(dirMark, '') : undefined;
+    return text ? text.replace(dirMark, '') : '';
   }
 
   function shouldBeRTL (plainText) {
