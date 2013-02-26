@@ -52,7 +52,8 @@ var RTLText = function () {
     DELETE: 46
   };
   var twLength = 0;
-  var tcoLength = 22;
+  var DEFAULT_TCO_LENGTH = 22;
+  var tcoLength = null;
   var isRTL = false;
   var originalText = "";
   var originalDir = "";
@@ -348,6 +349,7 @@ var RTLText = function () {
     var urls = twttr.txt.extractUrls(tweet);
     var length = tweet.length - urls.join('').length;
     var urlsLength = urls.length;
+    var tcoLength = that.getTcoLength();
     for (var i = 0; i < urlsLength; i++) {
       length += tcoLength;
       if (/^https:/.test(urls[i])) {
@@ -373,6 +375,17 @@ var RTLText = function () {
     return shouldBeRTL(s);
   };
 
+  that.getTcoLength = function () {
+    return tcoLength || DEFAULT_TCO_LENGTH;
+  };
+  that.setTcoLength = function (length) {
+    if (length > 0) {
+      tcoLength = parseInt(length, 10);
+    } else {
+      tcoLength = null;
+    }
+  };
+
   return that;
 
 }();
@@ -380,3 +393,4 @@ var RTLText = function () {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = RTLText;
 }
+

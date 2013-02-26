@@ -8,6 +8,7 @@ describe('tools to apply RTL rules to text entry', function () {
   var KEY_COMMAND = 91;
   var KEY_SHIFT = 16;
   var KEY_X = 88;
+  var DEFAULT_TCO_LENGTH = 22;
 
   var $textbox;
 
@@ -126,6 +127,39 @@ describe('tools to apply RTL rules to text entry', function () {
       var sampleText = '\u064A test';
       var result = RTLText.shouldBeRTL(sampleText);
       expect(result).toBe(false);
+    });
+  });
+
+  describe('getTcoLength()', function () {
+
+    it('returns the default length', function () {
+      expect(RTLText.getTcoLength()).toBe(DEFAULT_TCO_LENGTH);
+    });
+
+    it('returns the provided tco length', function () {
+      RTLText.setTcoLength(DEFAULT_TCO_LENGTH * 2);
+      expect(RTLText.getTcoLength()).toBe(DEFAULT_TCO_LENGTH * 2);
+    });
+  });
+
+  describe('setTcoLength()', function () {
+
+    it('sets the length', function () {
+      RTLText.setTcoLength(DEFAULT_TCO_LENGTH * 2);
+      expect(RTLText.getTcoLength()).toBe(DEFAULT_TCO_LENGTH * 2);
+    });
+
+    it('restores the default if a positive number is not provided', function () {
+      RTLText.setTcoLength(DEFAULT_TCO_LENGTH * 2);
+      expect(RTLText.getTcoLength()).toBe(DEFAULT_TCO_LENGTH * 2);
+
+      RTLText.setTcoLength(null);
+      expect(RTLText.getTcoLength()).toBe(DEFAULT_TCO_LENGTH);
+    });
+
+    it('converts numbers to integers', function () {
+      RTLText.setTcoLength(3.5);
+      expect(RTLText.getTcoLength()).toBe(3);
     });
   });
 });
