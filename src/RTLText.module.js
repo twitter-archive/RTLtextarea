@@ -241,7 +241,7 @@ var RTLText = function () {
       var urlsLength = urls.length;
 
       for (i = 0; i < urlsLength; i++) {
-        urlMentionsLength += urls[i].url.length + 2;
+        urlMentionsLength += urls[i].url.length;
       }
 
     }
