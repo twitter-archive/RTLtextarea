@@ -60,6 +60,19 @@ describe('tools to apply RTL rules to text entry', function () {
       expect($textbox.val()).toBe('\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA @');
     });
 
+    it('appropriately sets the position of the hashtag', function() {
+      var xKeyEvent = $.Event('keydown', { keyCode: KEY_X, which: KEY_X, target: $textbox.get(0) });
+      $textbox.on('keydown', RTLText.onTextChange);
+      $textbox.on('keyup', RTLText.onTextChange);
+      $textbox.focus();
+
+      var sampleText = '\u05D0\u05D5 #x \u05EA\u05D9\u05D5\u05EA';
+      $textbox.val(sampleText);
+      caret.setPosition($textbox.get(0), 2);
+      $textbox.trigger(xKeyEvent);
+      expect(caret.getPosition($textbox.get(0))).toBe(3);
+    });
+
     it('manually sets text direction', function () {
       var ctrlKeyEvent = $.Event('keydown', { keyCode: KEY_CTRL, which: KEY_CTRL, target: $textbox.get(0) });
       var commandKeyEvent = $.Event('keydown', { keyCode: KEY_COMMAND, which: KEY_COMMAND, target: $textbox.get(0) });

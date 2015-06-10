@@ -329,6 +329,7 @@ var RTLText = function () {
     var newTextDir = (isRTL ? 'rtl' : 'ltr');
 
     if (newText !== text) {
+      var pos = getCaretPosition(textarea);
       // Fix for Chrome for Android
       textarea.value = "";
       textarea.focus();
@@ -336,7 +337,7 @@ var RTLText = function () {
       // Assume any recent change in text length due to markers affects the
       // current cursor position. If more accuracy is needed, the position
       // could be translated during replace operations inside setMarkers.
-      setCaretPosition(textarea, getCaretPosition(textarea) + newText.length - plainText.length);
+      setCaretPosition(textarea, pos + newText.length - plainText.length);
     }
     if (!setManually) {
       setTextDirection(newTextDir, textarea);
