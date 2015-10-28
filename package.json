@@ -9,7 +9,7 @@
     "test": "phantomjs ./tests/public/lib/phantomjs-testrunner.js http://localhost:8085/phantom-runner.html",
     "posttest": "forever stop tests/server.js"
   },
-  "main": "./RTLText.module.js",
+  "main": "./src/RTLText.module.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/twitter/RTLtextarea.git"
@@ -19,7 +19,7 @@
     "international",
     "i18n"
   ],
-  "dependencies" : {
+  "devDependencies" : {
     "node-static"   :  "0.6.x",
     "phantomjs"     :  "0.2.x",
     "twitter-text"  :  "1.5.x",
