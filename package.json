@@ -1,7 +1,7 @@
 {
   "name": "rtltextarea",
   "preferGlobal": "true",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Esten Hurtle <ehurtle@twitter.com>",
   "description": "a module to apply RTL text to textboxes",
   "scripts": {
