@@ -1,6 +1,6 @@
 /*
  * RTLText
- * Copyright 2012 Twitter and other contributors
+ * Copyright 2015 Twitter and other contributors
  * Released under the MIT license
  *
  * What it does:
