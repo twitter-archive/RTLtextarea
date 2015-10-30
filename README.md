@@ -77,6 +77,6 @@ Authors
 
 License
 -----------
-Copyright 2012 Twitter, Inc.
+Copyright 2015 Twitter, Inc.
 
 Licensed under the [MIT License](http://opensource.org/licenses/mit-license.php)
