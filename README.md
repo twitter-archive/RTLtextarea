@@ -59,7 +59,7 @@ Releases are numbered and constructed with the following guidelines:
 
 Testing
 ----------
-Tests use [Jasmine](http://pivotal.github.com/jasmine/) and [PhantomJS](http://phantomjs.org/).
+Tests use [Jasmine](https://jasmine.github.io/) and [PhantomJS](http://phantomjs.org/).
 
 Before running the tests for the first time, install the required packages by typing: `npm update`.
 
